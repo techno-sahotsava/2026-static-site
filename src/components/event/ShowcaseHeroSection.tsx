@@ -7,10 +7,10 @@ import HeroBackgroundSlideshow from "@/components/event/HeroBackgroundSlideshow"
 export interface ShowcaseItem {
   id: string;
   src: string;
-  left: number; // in percentage of screen
-  top: number; // in percentage of screen
-  w: number; // in percentage of screen
-  h: number; // in percentage of screen
+  left: number;
+  top: number;
+  width: number;
+  height: number;
   dx: number; // scatter translation in vw
   dy: number; // scatter translation in vh
   rot: number; // scatter rotation in degrees
@@ -18,15 +18,19 @@ export interface ShowcaseItem {
   objectPosition?: string; // CSS object-position (e.g. "center top", "center center")
 }
 
-// Exact 9-image diamond mosaic layout and scatter vectors from DevFest Kolkata
+type ShowcaseTileStyle = React.CSSProperties & {
+  [key: `--tile-${string}`]: string;
+};
+
+// Nine-image photo mosaic with scatter vectors for the intro animation
 export const DEVFEST_SHOWCASE_ITEMS: ShowcaseItem[] = [
   {
     id: "showcase-1",
-    src: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM060037.jpg",
-    left: 7.85,
-    top: 38.9,
-    w: 19.86,
-    h: 27.9,
+    src: "/hero_section/RM060037.webp",
+    left: 3.5,
+    top: 39,
+    width: 22,
+    height: 39,
     dx: -18,
     dy: -18,
     rot: -12,
@@ -35,24 +39,24 @@ export const DEVFEST_SHOWCASE_ITEMS: ShowcaseItem[] = [
   },
   {
     id: "showcase-2",
-    src: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600692.jpg",
-    left: 27.7,
-    top: 30,
-    w: 15.97,
-    h: 22.07,
-    dx: 0,
-    dy: -24,
-    rot: 8,
-    title: "Vocal Spotlight",
-    objectPosition: "center top",
+    src: "/hero_section/RM060055.webp",
+    left: 25.4,
+    top: 26.8,
+    width: 17.8,
+    height: 31,
+    dx: -25,
+    dy: -20,
+    rot: -8,
+    title: "Guitarist in Blue Light",
+    objectPosition: "center center",
   },
   {
     id: "showcase-3",
-    src: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM060045.jpg",
-    left: 27.7,
-    top: 52.05,
-    w: 15.97,
-    h: 22.46,
+    src: "/hero_section/RM060045.webp",
+    left: 25.4,
+    top: 57.7,
+    width: 17.8,
+    height: 31.2,
     dx: -24,
     dy: 4,
     rot: -8,
@@ -61,11 +65,11 @@ export const DEVFEST_SHOWCASE_ITEMS: ShowcaseItem[] = [
   },
   {
     id: "showcase-4",
-    src: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600144.jpg",
-    left: 43.68,
-    top: 17.38,
-    w: 14.24,
-    h: 21.48,
+    src: "/hero_section/RM0600144.webp",
+    left: 43.1,
+    top: 9.2,
+    width: 15.6,
+    height: 29.6,
     dx: 18,
     dy: -18,
     rot: 14,
@@ -74,24 +78,24 @@ export const DEVFEST_SHOWCASE_ITEMS: ShowcaseItem[] = [
   },
   {
     id: "showcase-5",
-    src: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600128.jpg",
-    left: 43.68,
-    top: 38.38,
-    w: 14.44,
-    h: 20.8,
-    dx: 26,
-    dy: -2,
-    rot: -10,
-    title: "Live Arena Euphoria",
-    objectPosition: "center top",
+    src: "/hero_section/RM060041.webp",
+    left: 43.1,
+    top: 38.7,
+    width: 15.6,
+    height: 28.2,
+    dx: 4,
+    dy: -28,
+    rot: -6,
+    title: "Dance Performance",
+    objectPosition: "center center",
   },
   {
     id: "showcase-6",
-    src: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600834.jpg",
-    left: 43.68,
-    top: 58.79,
-    w: 14.24,
-    h: 23.83,
+    src: "/hero_section/RM060061.webp",
+    left: 43.1,
+    top: 66.9,
+    width: 15.6,
+    height: 33,
     dx: -16,
     dy: 22,
     rot: 10,
@@ -100,11 +104,11 @@ export const DEVFEST_SHOWCASE_ITEMS: ShowcaseItem[] = [
   },
   {
     id: "showcase-7",
-    src: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600141.jpg",
-    left: 57.92,
-    top: 30,
-    w: 14.86,
-    h: 22.56,
+    src: "/hero_section/RM0600141.webp",
+    left: 58.8,
+    top: 26.8,
+    width: 16.5,
+    height: 31,
     dx: 10,
     dy: -26,
     rot: -6,
@@ -113,11 +117,11 @@ export const DEVFEST_SHOWCASE_ITEMS: ShowcaseItem[] = [
   },
   {
     id: "showcase-8",
-    src: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600148.jpg",
-    left: 57.85,
-    top: 52.44,
-    w: 15.0,
-    h: 21.97,
+    src: "/hero_section/RM0600148.webp",
+    left: 58.8,
+    top: 57.7,
+    width: 16.5,
+    height: 31.2,
     dx: 22,
     dy: 24,
     rot: 12,
@@ -126,11 +130,11 @@ export const DEVFEST_SHOWCASE_ITEMS: ShowcaseItem[] = [
   },
   {
     id: "showcase-9",
-    src: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600184.jpg",
-    left: 72.78,
-    top: 41.31,
-    w: 19.31,
-    h: 28.42,
+    src: "/hero_section/RM0600184.webp",
+    left: 75.4,
+    top: 42.4,
+    width: 21.4,
+    height: 35,
     dx: 28,
     dy: 14,
     rot: -14,
@@ -397,44 +401,45 @@ export default function ShowcaseHeroSection({
             ========================================================================= */}
         {!isDarkWebsite && (
           <>
-            {/* THE EXACT 9-IMAGE SHOWCASE (Left to Right Sequential Entrance -> Scatter & Fade) */}
-            {experienceActive &&
-              DEVFEST_SHOWCASE_ITEMS.map((item, index) => {
-                // Stagger delay from left to right: index 0 to 8
-                const delayMs = index * staggerDelay;
+            {experienceActive && (
+              <div className="pointer-events-none absolute left-1/2 top-1/2 z-[3] h-[min(90vw,70vh)] w-screen -translate-x-1/2 -translate-y-1/2 lg:inset-0 lg:h-full lg:w-full lg:translate-x-0 lg:translate-y-0">
+                {DEVFEST_SHOWCASE_ITEMS.map((item, index) => {
+                  const delayMs = index * staggerDelay;
+                  const tileStyle: ShowcaseTileStyle = {
+                    "--tile-left": `${item.left}%`,
+                    "--tile-top": `${item.top}%`,
+                    "--tile-width": `${item.width}%`,
+                    "--tile-height": `${item.height}%`,
+                    transform: isScattering
+                      ? `translate(${item.dx}vw, ${item.dy}vh) rotate(${item.rot}deg) scale(0.7)`
+                      : "none",
+                    opacity: isScattering ? 0 : imagesVisible ? 1 : 0,
+                    transition: isScattering
+                      ? "transform 900ms cubic-bezier(.5,0,.75,.4), opacity 900ms cubic-bezier(.5,0,.75,.4)"
+                      : `opacity 400ms ease ${delayMs}ms`,
+                  };
 
-                return (
-                  <div
-                    key={item.id}
-                    className="absolute pointer-events-none will-change-transform shadow-[0_8px_32px_rgba(0,0,0,0.6)] border border-white/10 rounded-sm overflow-hidden"
-                    style={{
-                      left: `${item.left}%`,
-                      top: `${item.top}%`,
-                      width: `${item.w}%`,
-                      height: `${item.h}%`,
-                      transform: isScattering
-                        ? `translate(${item.dx}vw, ${item.dy}vh) rotate(${item.rot}deg) scale(0.7)`
-                        : "none",
-                      opacity: isScattering ? 0 : imagesVisible ? 1 : 0,
-                      transition: isScattering
-                        ? "transform 900ms cubic-bezier(.5,0,.75,.4), opacity 900ms cubic-bezier(.5,0,.75,.4)"
-                        : `opacity 400ms ease ${delayMs}ms`,
-                      zIndex: 3,
-                    }}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.src}
-                      alt={item.title}
-                      draggable={false}
-                      className="block w-full h-full object-cover"
-                      style={{
-                        objectPosition: item.objectPosition || "center center",
-                      }}
-                    />
-                  </div>
-                );
-              })}
+                  return (
+                    <div
+                      key={item.id}
+                      className="pointer-events-none absolute left-[var(--tile-left)] top-[var(--tile-top)] h-[var(--tile-height)] w-[var(--tile-width)] overflow-hidden rounded-[2px] border border-white/10 bg-neutral-900 shadow-[0_8px_24px_rgba(0,0,0,0.4)] will-change-transform"
+                      style={tileStyle}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={item.src}
+                        alt={item.title}
+                        draggable={false}
+                        className="block h-full w-full object-cover"
+                        style={{
+                          objectPosition: item.objectPosition || "center center",
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
 
             {/* "Start the experience" CTA Button (if experience hasn't activated) */}
             <button
@@ -487,7 +492,7 @@ export default function ShowcaseHeroSection({
               zIndex: 1,
             }}
           >
-            {/* Cinematic Hero Image Slideshow (Cloudinary Edge CDN + GSAP Transitions) */}
+            {/* Cinematic portrait slideshow with GSAP transitions */}
             <HeroBackgroundSlideshow isVisible={heroContentRevealed || isDarkWebsite} />
           </div>
         )}
@@ -498,7 +503,7 @@ export default function ShowcaseHeroSection({
         {isDarkWebsite && (
           <>
             {/* Center Hero Content Container (Guaranteed 100% Horizontal & Vertical Centering) */}
-            <div className="pointer-events-none absolute inset-0 z-20 w-full max-w-full flex flex-col items-center justify-center px-4 sm:px-8 text-center mx-auto">
+            <div className="pointer-events-none absolute inset-0 z-20 w-full max-w-full flex -translate-y-[11vh] flex-col items-center justify-center px-4 text-center mx-auto sm:px-8 md:translate-y-0">
               {/* Unified Typographic Block (SANSKARAN + 2026 Locked to Exact Same Width) */}
               <div className="inline-flex flex-col items-stretch text-center max-w-[94vw]">
                 {/* Primary Festival Title (Solid White Bebas Neue Display matching Gallery Section) */}

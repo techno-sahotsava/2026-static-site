@@ -121,6 +121,33 @@ html::-webkit-scrollbar {
   display: none;
 }
 
+@media (min-width: 768px) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #714cb6 #0d0d0e;
+    -ms-overflow-style: auto;
+  }
+
+  html::-webkit-scrollbar {
+    display: block;
+    width: 10px;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: #0d0d0e;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    background: #714cb6;
+    border: 2px solid #0d0d0e;
+    border-radius: 9999px;
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background: #d4c7ff;
+  }
+}
+
 @font-face {
   font-family: "Google Sans";
   src: url("/fonts/GoogleSans.ttf") format("truetype");

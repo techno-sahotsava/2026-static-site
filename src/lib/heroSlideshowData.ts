@@ -1,4 +1,5 @@
 import heroAssets from "./heroSlideshowAssets.json";
+import mobileHeroAssets from "./mobileHeroSlideshowAssets.json";
 
 export interface HeroSlide {
   id: string;
@@ -8,7 +9,7 @@ export interface HeroSlide {
   height: number;
 }
 
-export const HERO_SLIDES: HeroSlide[] = (heroAssets as Array<{
+type HeroSlideAsset = {
   file: string;
   publicId: string;
   secureUrl: string;
@@ -16,12 +17,17 @@ export const HERO_SLIDES: HeroSlide[] = (heroAssets as Array<{
   thumbUrl: string;
   width: number;
   height: number;
-}>).map((asset, index) => ({
-  id: `hero-slide-${index + 1}`,
-  // Harmonize to w_1200 so it shares the exact same browser cache entries as ShowcaseHeroSection & AboutFestivalSection
-  url: asset.optimizedUrl.replace("w_1920", "w_1200"),
-  thumbUrl: asset.thumbUrl,
-  width: asset.width,
-  height: asset.height,
-}));
+};
+
+const mapHeroSlides = (assets: HeroSlideAsset[]): HeroSlide[] =>
+  assets.map((asset, index) => ({
+    id: `hero-slide-${index + 1}`,
+    url: asset.optimizedUrl.replace("w_1920", "w_1200"),
+    thumbUrl: asset.thumbUrl,
+    width: asset.width,
+    height: asset.height,
+  }));
+
+export const HERO_SLIDES = mapHeroSlides(heroAssets as HeroSlideAsset[]);
+export const MOBILE_HERO_SLIDES = mapHeroSlides(mobileHeroAssets as HeroSlideAsset[]);
 

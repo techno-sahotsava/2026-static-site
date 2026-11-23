@@ -167,7 +167,7 @@ function SanskaranSection({ onInspect }: SanskaranSectionProps) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
             setInView(true);
 
             // Trigger GSAP entrance animation with natural easing
@@ -249,12 +249,21 @@ function SanskaranSection({ onInspect }: SanskaranSectionProps) {
 
             {/* Sub-tagline */}
             <p className="sanskaran-text-anim product_sans text-lg sm:text-xl font-medium text-[#d4c7ff] mt-3 leading-snug">
-              The Soul of Heritage, Thought &amp; Artistic Mastery
+              The Driving Force Behind Campus Culture
             </p>
 
-            {/* Rich Narrative Copy */}
+            {/* Sanskaran Overview */}
             <p className="sanskaran-text-anim product_sans text-sm sm:text-base text-white/70 mt-5 leading-relaxed">
-              Sanskaran is our flagship intellectual and cultural conclave — a deliberate sanctuary where traditional Indian heritage, proscenium thespian drama, parliamentary debates, and fine arts ateliers converge. It is the scholarly heartbeat of the festival where students interrogate literature, express classical forms, and celebrate timeless human craft.
+              Sanskaran, the official cultural club of Techno India University, stands at the heart of the university&apos;s cultural landscape. A dynamic platform for creativity, expression, and collaboration, it brings together diverse artistic disciplines to transform ideas into experiences that resonate across campus and beyond.
+            </p>
+            <p className="sanskaran-text-anim product_sans text-sm sm:text-base text-white/70 mt-3 leading-relaxed">
+              From music, dance, and photography to literature, performance, and creative showcases, Sanskaran provides a platform for emerging talent while cultivating a vibrant community of young minds. Through its year-round initiatives and large-scale celebrations, including Sahotsava, it creates opportunities for students to connect, engage, and experience culture beyond the classroom.
+            </p>
+            <p className="sanskaran-text-anim product_sans text-sm sm:text-base text-white/70 mt-3 leading-relaxed">
+              More than a cultural club, Sanskaran is a driving force behind student engagement, creative collaboration, and campus experiences. By connecting talent, audiences, and communities, it creates meaningful opportunities for brands to engage with an energetic youth audience, build visibility, and become part of experiences that leave a lasting impression.
+            </p>
+            <p className="sanskaran-text-anim product_sans text-sm sm:text-base font-semibold tracking-wide text-[#d4c7ff] mt-5">
+              #ComeJoinTheHappiness
             </p>
           </div>
 
@@ -264,21 +273,21 @@ function SanskaranSection({ onInspect }: SanskaranSectionProps) {
           <div className="lg:col-span-7 sanskaran-gallery-grid">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {/* Image 1: Main Heritage Feature */}
-              <div className="sanskaran-img-fade sm:col-span-2 relative h-64 sm:h-80 rounded-2xl overflow-hidden shadow-lg shadow-black/10 group">
+              <div className="sanskaran-img-fade sm:col-span-2 relative aspect-video rounded-2xl overflow-hidden shadow-lg shadow-black/10 group">
                 <img
-                  src="https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM060037.jpg"
-                  alt="Heritage of Kolkata and Sanskaran Ateliers"
+                  src="/hero_section/RM0600350.webp"
+                  alt="Traditional dance performance on stage"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
 
               {/* Image 2: Atelier & Interior Craft */}
               <div className="sanskaran-img-fade relative h-48 sm:h-60 rounded-2xl overflow-hidden shadow-lg shadow-black/10 group">
                 <img
-                  src="https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600692.jpg"
-                  alt="Live vocal spotlight and proscenium performance"
+                  src="/hero_section/RM060041.webp"
+                  alt="Black-and-white dramatic stage performance"
                   loading="lazy"
                   decoding="async"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
@@ -312,7 +321,9 @@ interface SahotsavaSectionProps {
 
 function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [inView, setInView] = useState(false);
+  const [needsAudioGesture, setNeedsAudioGesture] = useState(false);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -377,6 +388,47 @@ function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
     };
   }, []);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+          video.muted = false;
+          void video.play().then(
+            () => setNeedsAudioGesture(false),
+            (error: unknown) => {
+              video.muted = true;
+              setNeedsAudioGesture(true);
+
+              if (error instanceof DOMException && error.name === "NotAllowedError") {
+                void video.play().catch((fallbackError: unknown) => {
+                  console.error("Unable to play the Sahotsava video:", fallbackError);
+                });
+                return;
+              }
+
+              console.error("Unable to play the Sahotsava video with sound:", error);
+            }
+          );
+        } else {
+          video.pause();
+          video.muted = true;
+          setNeedsAudioGesture(false);
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(video);
+    return () => {
+      observer.disconnect();
+      video.pause();
+      video.muted = true;
+    };
+  }, []);
+
   return (
     <section
       id="sahotsava"
@@ -406,12 +458,18 @@ function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
 
             {/* Sub-tagline */}
             <p className="sahotsava-text-anim product_sans text-lg sm:text-xl font-medium text-[#d4c7ff] mt-3 leading-snug">
-              The Electric Pulse of Music, Spectacle &amp; Euphoria
+              A Celebration Beyond Imagination
             </p>
 
-            {/* Rich Narrative Copy */}
+            {/* Sahotsava Overview */}
             <p className="sahotsava-text-anim product_sans text-sm sm:text-base text-[#ffffff]/80 mt-5 leading-relaxed">
-              Sahotsava is the high-voltage arena of our festival — a roaring open-air colosseum of live celebrity concerts, subterranean street dance cyphers, haute couture fashion runways, and thunderous battle of the bands. It unites thousands of screaming voices under laser-lit festival skies in celebration of unbridled youth momentum.
+              Sahotsava, the annual cultural celebration of Techno India University, brings together creativity, talent, and youthful energy on one grand platform. From electrifying performances to immersive experiences, it celebrates artistic expression, builds connections, and creates unforgettable memories.
+            </p>
+            <p className="sahotsava-text-anim product_sans text-sm sm:text-base text-[#ffffff]/80 mt-3 leading-relaxed">
+              More than an annual celebration, Sahotsava is a vibrant platform for brands to connect with an energetic youth audience, build visibility, and become part of experiences that leave a lasting impression.
+            </p>
+            <p className="sahotsava-text-anim product_sans text-sm sm:text-base font-semibold tracking-wide text-[#d4c7ff] mt-5">
+              #ComeJoinTheHappiness
             </p>
           </div>
 
@@ -421,17 +479,52 @@ function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
           <div className="lg:col-span-7 sahotsava-gallery-grid">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {/* Image 1: Main Arena Concert Feature */}
-              <div className="sahotsava-img-fade sm:col-span-2 relative h-64 sm:h-80 rounded-2xl overflow-hidden shadow-xl shadow-black/30 group">
+              <div className="sahotsava-img-fade sm:col-span-2 relative aspect-video rounded-2xl overflow-hidden bg-black shadow-xl shadow-black/30 group">
+                <video
+                ref={videoRef}
+                  src="/videos/hero-background.mp4"
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-hidden="true"
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                />
+                {needsAudioGesture && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const video = videoRef.current;
+                      if (!video) return;
+
+                      video.muted = false;
+                      void video.play().then(
+                        () => setNeedsAudioGesture(false),
+                        (error: unknown) => {
+                          video.muted = true;
+                          console.error("Unable to play the Sahotsava video with sound:", error);
+                        }
+                      );
+                    }}
+                    className="absolute bottom-4 right-4 z-10 rounded-lg bg-black/75 px-4 py-2 font-tech text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md transition-colors hover:bg-[#714cb6]"
+                  >
+                    Tap to enable sound
+                  </button>
+                )}
+              </div>
+
+              {/* Image 2: Neon Rig Synthesis */}
+              <div className="sahotsava-img-fade relative aspect-[4/5] rounded-2xl overflow-hidden bg-black shadow-xl shadow-black/30 group">
                 <img
-                  src="https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600834.jpg"
-                  alt="High-voltage stage and concert pro-nites"
+                  src="/hero_section/RM0600141.webp"
+                  alt="Two singers performing on stage"
                   loading="lazy"
                   decoding="async"
                   className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
 
-              {/* Image 2: Neon Rig Synthesis */}
+              {/* Image 3: Neon Rig Synthesis */}
               <div className="sahotsava-img-fade relative h-48 sm:h-60 rounded-2xl overflow-hidden shadow-xl shadow-black/30 group">
                 <img
                   src="https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600144.jpg"
@@ -441,9 +534,8 @@ function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
-
-              {/* Image 3: Gothic Acoustics & Live Stadium Sound */}
-              <div className="sahotsava-img-fade relative h-48 sm:h-60 rounded-2xl overflow-hidden shadow-xl shadow-black/30 group">
+              {/* Image 4: Gothic Acoustics & Live Stadium Sound */}
+              <div className="sahotsava-img-fade relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl shadow-black/30 group">
                 <img
                   src="https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600184.jpg"
                   alt="Sound acoustics and live band performance"

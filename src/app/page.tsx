@@ -26,7 +26,7 @@ export default function Home() {
       <ParallaxBackground />
 
       {/* 3. Hero Section (Locked Stage Video & Hollow Outline Typography) */}
-      <div id="hero" className="sticky top-0 z-0 h-screen w-full overflow-hidden select-none">
+      <div id="hero" className="sticky top-0 z-0 h-screen h-[100dvh] w-full overflow-hidden select-none">
         <ShowcaseHeroSection onExplore={handleExploreFestival} />
       </div>
 

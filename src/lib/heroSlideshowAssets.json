@@ -1,102 +1,93 @@
 [
   {
-    "file": "RM060037.jpg",
-    "publicId": "hero section/RM060037",
-    "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795375996/hero%20section/RM060037.jpg",
-    "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM060037.jpg",
-    "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM060037.jpg",
+    "file": "ANS4440.jpg",
+    "publicId": "slideshow/ANS4440",
+    "secureUrl": "/slideshow/ANS4440.jpg",
+    "optimizedUrl": "/slideshow/ANS4440.jpg",
+    "thumbUrl": "/slideshow/ANS4440.jpg",
     "width": 2560,
-    "height": 3840
+    "height": 1340
   },
   {
-    "file": "RM060041.jpg",
-    "publicId": "hero section/RM060041",
-    "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795375834/hero%20section/RM060041.jpg",
-    "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM060041.jpg",
-    "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM060041.jpg",
-    "width": 3271,
-    "height": 4089
-  },
-  {
-    "file": "RM060045.jpg",
-    "publicId": "hero section/RM060045",
-    "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795375831/hero%20section/RM060045.jpg",
-    "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM060045.jpg",
-    "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM060045.jpg",
-    "width": 1254,
-    "height": 1567
-  },
-  {
-    "file": "RM060055.jpg",
-    "publicId": "hero section/RM060055",
-    "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795375997/hero%20section/RM060055.jpg",
-    "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM060055.jpg",
-    "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM060055.jpg",
-    "width": 3072,
-    "height": 3840
-  },
-  {
-    "file": "RM060061.jpg",
-    "publicId": "hero section/RM060061",
-    "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795375997/hero%20section/RM060061.jpg",
-    "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM060061.jpg",
-    "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM060061.jpg",
-    "width": 3072,
-    "height": 3840
-  },
-  {
-    "file": "RM0600128.jpg",
-    "publicId": "hero section/RM0600128",
-    "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795375997/hero%20section/RM0600128.jpg",
-    "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM0600128.jpg",
-    "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM0600128.jpg",
-    "width": 3072,
-    "height": 3840
-  },
-  {
-    "file": "RM0600141.jpg",
-    "publicId": "hero section/RM0600141",
-    "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795375854/hero%20section/RM0600141.jpg",
-    "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM0600141.jpg",
-    "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM0600141.jpg",
-    "width": 3522,
-    "height": 4402
-  },
-  {
-    "file": "RM0600144.jpg",
-    "publicId": "hero section/RM0600144",
-    "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795375856/hero%20section/RM0600144.jpg",
-    "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM0600144.jpg",
-    "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM0600144.jpg",
-    "width": 1856,
-    "height": 2320
-  },
-  {
-    "file": "RM0600148.jpg",
-    "publicId": "hero section/RM0600148",
-    "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795375859/hero%20section/RM0600148.jpg",
-    "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM0600148.jpg",
-    "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM0600148.jpg",
-    "width": 3651,
-    "height": 4564
-  },
-  {
-    "file": "RM0600149.jpg",
-    "publicId": "hero section/RM0600149",
-    "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795375860/hero%20section/RM0600149.jpg",
-    "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM0600149.jpg",
-    "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM0600149.jpg",
-    "width": 2935,
-    "height": 3669
-  },
-  {
-    "file": "RM0600184.jpg",
-    "publicId": "hero section/RM0600184",
-    "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795375999/hero%20section/RM0600184.jpg",
-    "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM0600184.jpg",
-    "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM0600184.jpg",
+    "file": "ANS4675.jpg",
+    "publicId": "slideshow/ANS4675",
+    "secureUrl": "/slideshow/ANS4675.jpg",
+    "optimizedUrl": "/slideshow/ANS4675.jpg",
+    "thumbUrl": "/slideshow/ANS4675.jpg",
     "width": 2560,
-    "height": 3840
+    "height": 1340
+  },
+  {
+    "file": "ANS4908.jpg",
+    "publicId": "slideshow/ANS4908",
+    "secureUrl": "/slideshow/ANS4908.jpg",
+    "optimizedUrl": "/slideshow/ANS4908.jpg",
+    "thumbUrl": "/slideshow/ANS4908.jpg",
+    "width": 2560,
+    "height": 1340
+  },
+  {
+    "file": "DSC6278-20251221.jpg",
+    "publicId": "slideshow/DSC6278-20251221",
+    "secureUrl": "/slideshow/DSC6278-20251221.jpg",
+    "optimizedUrl": "/slideshow/DSC6278-20251221.jpg",
+    "thumbUrl": "/slideshow/DSC6278-20251221.jpg",
+    "width": 2560,
+    "height": 1340
+  },
+  {
+    "file": "DSC00586.jpg",
+    "publicId": "slideshow/DSC00586",
+    "secureUrl": "/slideshow/DSC00586.jpg",
+    "optimizedUrl": "/slideshow/DSC00586.jpg",
+    "thumbUrl": "/slideshow/DSC00586.jpg",
+    "width": 2560,
+    "height": 1706
+  },
+  {
+    "file": "DSC00714.jpg",
+    "publicId": "slideshow/DSC00714",
+    "secureUrl": "/slideshow/DSC00714.jpg",
+    "optimizedUrl": "/slideshow/DSC00714.jpg",
+    "thumbUrl": "/slideshow/DSC00714.jpg",
+    "width": 2560,
+    "height": 1706
+  },
+  {
+    "file": "DSC00848.jpg",
+    "publicId": "slideshow/DSC00848",
+    "secureUrl": "/slideshow/DSC00848.jpg",
+    "optimizedUrl": "/slideshow/DSC00848.jpg",
+    "thumbUrl": "/slideshow/DSC00848.jpg",
+    "width": 2560,
+    "height": 1706
+  },
+  {
+    "file": "DSC00892.jpg",
+    "publicId": "slideshow/DSC00892",
+    "secureUrl": "/slideshow/DSC00892.jpg",
+    "optimizedUrl": "/slideshow/DSC00892.jpg",
+    "thumbUrl": "/slideshow/DSC00892.jpg",
+    "width": 2560,
+    "height": 1706
+  },
+  {
+    "file": "Rik-1036-of-135.jpg",
+    "publicId": "slideshow/Rik-1036-of-135",
+    "secureUrl": "/slideshow/Rik-1036-of-135.jpg",
+    "optimizedUrl": "/slideshow/Rik-1036-of-135.jpg",
+    "thumbUrl": "/slideshow/Rik-1036-of-135.jpg",
+    "width": 2560,
+    "height": 1340
+  },
+  {
+    "file": "Rik-1089-of-135.jpg",
+    "publicId": "slideshow/Rik-1089-of-135",
+    "secureUrl": "/slideshow/Rik-1089-of-135.jpg",
+    "optimizedUrl": "/slideshow/Rik-1089-of-135.jpg",
+    "thumbUrl": "/slideshow/Rik-1089-of-135.jpg",
+    "width": 2560,
+    "height": 1340
   },
   {
     "file": "RM0600350.jpg",
@@ -113,15 +104,6 @@
     "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795376001/hero%20section/RM0600494.jpg",
     "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM0600494.jpg",
     "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM0600494.jpg",
-    "width": 3840,
-    "height": 2010
-  },
-  {
-    "file": "RM0600692.jpg",
-    "publicId": "hero section/RM0600692",
-    "secureUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795376000/hero%20section/RM0600692.jpg",
-    "optimizedUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1920,c_limit/hero%20section/RM0600692.jpg",
-    "thumbUrl": "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/hero%20section/RM0600692.jpg",
     "width": 3840,
     "height": 2010
   },

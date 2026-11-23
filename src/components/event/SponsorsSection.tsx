@@ -141,7 +141,9 @@ export default function SponsorsSection() {
                   src={sponsor.logo}
                   alt={sponsor.name}
                   loading="lazy"
-                  className="max-h-full max-w-full object-contain filter drop-shadow-md opacity-80 group-hover/sponsor:opacity-100 group-hover/sponsor:scale-105 transition-all duration-300"
+                  className={`max-h-full max-w-full object-contain filter drop-shadow-md group-hover/sponsor:scale-105 transition-transform duration-300 ${
+                    sponsor.id === "sp-51" ? "" : "bg-white p-2 rounded-lg"
+                  }`}
                 />
               </div>
 

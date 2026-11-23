@@ -196,7 +196,8 @@ function CoreMemberCard({ member, index }: CardProps) {
             <img
               src={member.imageUrl}
               alt={member.name}
-              loading="lazy"
+              loading={index < 3 ? "eager" : "lazy"}
+              fetchPriority={index < 3 ? "low" : "auto"}
               decoding="async"
               className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
             />

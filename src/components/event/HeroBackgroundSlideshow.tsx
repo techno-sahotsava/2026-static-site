@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { HERO_SLIDES } from "@/lib/heroSlideshowData";
+import { HERO_SLIDES, MOBILE_HERO_SLIDES } from "@/lib/heroSlideshowData";
 
 /* ==========================================================================
    SLIDESHOW TIMING & ANIMATION CONFIGURATION
@@ -19,14 +19,16 @@ export const SLIDESHOW_CONFIG = {
   // 🔍 PURE ZOOM-IN ONLY (Zero shifting, never zooms out)
   ZOOM_BASE_SCALE: 1.0,
   ZOOM_MAX_SCALE: 1.10,
-  PARALLAX_MAX_PX: 20,
 };
 
 export default function HeroBackgroundSlideshow({ isVisible = true }: { isVisible?: boolean }) {
+  const [isMobile, setIsMobile] = useState(false);
+  const slides = isMobile ? MOBILE_HERO_SLIDES : HERO_SLIDES;
   const containerRef = useRef<HTMLDivElement>(null);
-  const parallaxRef = useRef<HTMLDivElement>(null);
   const layerARef = useRef<HTMLDivElement>(null);
   const layerBRef = useRef<HTMLDivElement>(null);
+  const bgImgARef = useRef<HTMLImageElement>(null);
+  const bgImgBRef = useRef<HTMLImageElement>(null);
   const imgARef = useRef<HTMLImageElement>(null);
   const imgBRef = useRef<HTMLImageElement>(null);
   const burnOverlayRef = useRef<HTMLDivElement>(null);
@@ -57,15 +59,34 @@ export default function HeroBackgroundSlideshow({ isVisible = true }: { isVisibl
   }, []);
 
   useEffect(() => {
-    if (!isVisible || !HERO_SLIDES.length) return;
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const updateViewport = () => setIsMobile(mediaQuery.matches);
+
+    updateViewport();
+    mediaQuery.addEventListener("change", updateViewport);
+
+    return () => mediaQuery.removeEventListener("change", updateViewport);
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible || !slides.length) return;
 
     const layerA = layerARef.current;
     const layerB = layerBRef.current;
+    const bgImgA = bgImgARef.current;
+    const bgImgB = bgImgBRef.current;
     const imgA = imgARef.current;
     const imgB = imgBRef.current;
     const burnOverlay = burnOverlayRef.current;
 
-    if (!layerA || !layerB || !imgA || !imgB) return;
+    if (!layerA || !layerB || !bgImgA || !bgImgB || !imgA || !imgB) return;
+
+    // Preload helper
+    const preload = (idx: number) => {
+      const target = (idx + slides.length) % slides.length;
+      const pre = new Image();
+      pre.src = slides[target].url;
+    };
 
     // Calculate total animation duration for constant forward zoom
     const totalZoomDuration =
@@ -92,14 +113,18 @@ export default function HeroBackgroundSlideshow({ isVisible = true }: { isVisibl
     slideIdxRef.current = 0;
     isTransitioningRef.current = false;
 
-    imgA.src = HERO_SLIDES[0].url;
-    imgB.src = HERO_SLIDES[1 % HERO_SLIDES.length].url;
+    bgImgA.src = slides[0].url;
+    bgImgB.src = slides[1 % slides.length].url;
+    imgA.src = slides[0].url;
+    imgB.src = slides[1 % slides.length].url;
 
     gsap.set(layerA, { autoAlpha: 1, zIndex: 1 });
     gsap.set(layerB, { autoAlpha: 0, zIndex: 0 });
     if (burnOverlay) gsap.set(burnOverlay, { autoAlpha: 0 });
 
-    startForwardZoom(imgA);
+    startForwardZoom(bgImgA);
+    preload(1);
+    preload(2);
 
     // Step Transition: swaps between Layer A and Layer B without DOM rebuilds
     const stepTransition = () => {
@@ -109,18 +134,21 @@ export default function HeroBackgroundSlideshow({ isVisible = true }: { isVisibl
       const isAActive = activeLayerRef.current === 0;
       const outgoingLayer = isAActive ? layerA : layerB;
       const incomingLayer = isAActive ? layerB : layerA;
-      const outgoingImg = isAActive ? imgA : imgB;
+      const outgoingBgImg = isAActive ? bgImgA : bgImgB;
+      const incomingBgImg = isAActive ? bgImgB : bgImgA;
       const incomingImg = isAActive ? imgB : imgA;
 
-      const nextSlideIdx = (slideIdxRef.current + 1) % HERO_SLIDES.length;
-      incomingImg.src = HERO_SLIDES[nextSlideIdx].url;
+      const nextSlideIdx = (slideIdxRef.current + 1) % slides.length;
+      incomingBgImg.src = slides[nextSlideIdx].url;
+      incomingImg.src = slides[nextSlideIdx].url;
+      preload((nextSlideIdx + 1) % slides.length);
 
       // Layer stacking: incoming is on top so outgoing is visible underneath during fade
       incomingLayer.style.zIndex = "2";
       outgoingLayer.style.zIndex = "1";
 
-      // Start incoming image zoom immediately from base scale 1.00 (monotonically zooming forward)
-      startForwardZoom(incomingImg);
+      // Zoom the blurred backdrop while keeping the foreground image uncropped.
+      startForwardZoom(incomingBgImg);
 
       const prefersReducedMotion =
         typeof window !== "undefined" &&
@@ -134,7 +162,7 @@ export default function HeroBackgroundSlideshow({ isVisible = true }: { isVisibl
 
         // Reset outgoing layer
         gsap.set(outgoingLayer, { autoAlpha: 0, zIndex: 0 });
-        gsap.killTweensOf(outgoingImg);
+        gsap.killTweensOf(outgoingBgImg);
 
         // Schedule next image after the constant slide duration (if in view)
         if (!isPausedRef.current) {
@@ -191,37 +219,13 @@ export default function HeroBackgroundSlideshow({ isVisible = true }: { isVisibl
       if (timerRef.current) clearTimeout(timerRef.current);
       gsap.killTweensOf(layerA);
       gsap.killTweensOf(layerB);
-      gsap.killTweensOf(imgA);
-      gsap.killTweensOf(imgB);
+      gsap.killTweensOf(bgImgA);
+      gsap.killTweensOf(bgImgB);
       if (burnOverlay) gsap.killTweensOf(burnOverlay);
     };
-  }, [isVisible]);
+  }, [isVisible, slides]);
 
-  // Mouse Parallax Interaction (Translates subtly with cursor)
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const handlePointerMove = (e: PointerEvent) => {
-      if (!parallaxRef.current) return;
-      const nx = (e.clientX / window.innerWidth - 0.5) * 2;
-      const ny = (e.clientY / window.innerHeight - 0.5) * 2;
-
-      gsap.to(parallaxRef.current, {
-        x: nx * SLIDESHOW_CONFIG.PARALLAX_MAX_PX,
-        y: ny * SLIDESHOW_CONFIG.PARALLAX_MAX_PX,
-        duration: 1.2,
-        ease: "power2.out",
-        overwrite: "auto",
-      });
-    };
-
-    window.addEventListener("pointermove", handlePointerMove, { passive: true });
-    return () => {
-      window.removeEventListener("pointermove", handlePointerMove);
-    };
-  }, []);
-
-  if (!HERO_SLIDES.length) return null;
+  if (!slides.length) return null;
 
   return (
     <div
@@ -229,23 +233,28 @@ export default function HeroBackgroundSlideshow({ isVisible = true }: { isVisibl
       className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none bg-black"
       aria-hidden="true"
     >
-      {/* PARALLAX CONTAINER WRAPPER (Translates subtly with cursor) */}
-      <div
-        ref={parallaxRef}
-        className="absolute -inset-[32px] w-[calc(100%+64px)] h-[calc(100%+64px)] will-change-transform"
-      >
+      <div className="absolute inset-0 w-full h-full">
         {/* LAYER A: First Buffer */}
         <div
           ref={layerARef}
           className="absolute inset-0 w-full h-full will-change-transform will-change-opacity overflow-hidden"
         >
           <img
+            ref={bgImgARef}
+            src={slides[0]?.url || ""}
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            decoding="async"
+            className="hidden absolute -inset-8 h-[calc(100%+4rem)] w-[calc(100%+4rem)] object-cover blur-2xl opacity-80 brightness-50 saturate-110 will-change-transform md:block md:opacity-70 md:brightness-50 md:saturate-125"
+          />
+          <img
             ref={imgARef}
-            src={HERO_SLIDES[0]?.url || ""}
+            src={slides[0]?.url || ""}
             alt=""
             loading="eager"
             decoding="async"
-            className="w-full h-full object-cover object-center filter contrast-[112%] brightness-[86%] saturate-[108%] will-change-transform"
+            className="relative z-10 w-full h-full object-cover object-center md:object-contain"
           />
         </div>
 
@@ -255,12 +264,21 @@ export default function HeroBackgroundSlideshow({ isVisible = true }: { isVisibl
           className="absolute inset-0 w-full h-full will-change-transform will-change-opacity overflow-hidden"
         >
           <img
+            ref={bgImgBRef}
+            src={slides[1]?.url || ""}
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            decoding="async"
+            className="hidden absolute -inset-8 h-[calc(100%+4rem)] w-[calc(100%+4rem)] object-cover blur-2xl opacity-80 brightness-50 saturate-110 will-change-transform md:block md:opacity-70 md:brightness-50 md:saturate-125"
+          />
+          <img
             ref={imgBRef}
-            src={HERO_SLIDES[1]?.url || ""}
+            src={slides[1]?.url || ""}
             alt=""
             loading="eager"
             decoding="async"
-            className="w-full h-full object-cover object-center filter contrast-[112%] brightness-[86%] saturate-[108%] will-change-transform"
+            className="relative z-10 w-full h-full object-cover object-center md:object-contain"
           />
         </div>
       </div>
@@ -275,23 +293,9 @@ export default function HeroBackgroundSlideshow({ isVisible = true }: { isVisibl
         }}
       />
 
-      {/* AUTHENTIC 35MM ANALOG FILM GRAIN OVERLAY */}
-      <div
-        className="absolute inset-0 z-10 pointer-events-none opacity-[0.04] mix-blend-overlay"
-        style={{
-          backgroundImage:
-            "radial-gradient(#ffffff 1px, transparent 1px), radial-gradient(#000000 1px, transparent 1px)",
-          backgroundSize: "4px 4px, 3px 3px",
-        }}
-      />
-
       {/* SEAMLESS CINEMATIC DARK GRADIENT VIGNETTE LAYER */}
       <div
-        className="absolute inset-0 z-10 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.18) 45%, rgba(0,0,0,0.85) 100%)",
-        }}
+        className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-black/60 via-black/20 to-black/75 md:from-black/70 md:via-black/20 md:to-black/85"
       />
     </div>
   );

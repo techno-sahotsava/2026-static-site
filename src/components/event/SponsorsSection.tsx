@@ -117,11 +117,32 @@ export default function SponsorsSection() {
               </svg>
             </a>
             <a
+              href="mailto:technosahotsava@gmail.com"
+              aria-label="Email technosahotsava@gmail.com about sponsorship"
+              className="group relative inline-flex w-full items-center justify-center gap-3 px-6 sm:px-8 py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/20 hover:border-white/50 backdrop-blur-md transition-all duration-300 shadow-[0_0_24px_rgba(255,255,255,0.05)] text-white font-tech uppercase tracking-[0.16em] text-xs sm:text-sm font-semibold active:scale-95 sm:hidden"
+            >
+              <span>BECOME A SPONSOR</span>
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-[#B9ACF0] group-hover:translate-x-1 group-hover:text-white transition-all"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </a>
+            <a
               href="https://mail.google.com/mail/?view=cm&fs=1&to=technosahotsava%40gmail.com"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Email technosahotsava@gmail.com about sponsorship"
-              className="group relative inline-flex w-full sm:w-auto items-center justify-center gap-3 px-6 sm:px-8 py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/20 hover:border-white/50 backdrop-blur-md transition-all duration-300 shadow-[0_0_24px_rgba(255,255,255,0.05)] text-white font-tech uppercase tracking-[0.16em] text-xs sm:text-sm font-semibold active:scale-95"
+              className="group relative hidden w-full sm:w-auto items-center justify-center gap-3 px-6 sm:px-8 py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/20 hover:border-white/50 backdrop-blur-md transition-all duration-300 shadow-[0_0_24px_rgba(255,255,255,0.05)] text-white font-tech uppercase tracking-[0.16em] text-xs sm:text-sm font-semibold active:scale-95 sm:inline-flex"
             >
               <span>BECOME A SPONSOR</span>
               <svg

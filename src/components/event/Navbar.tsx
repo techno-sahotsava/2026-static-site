@@ -131,10 +131,10 @@ export default function Navbar() {
     { label: "SANSKARAN", target: "#about" },
     { label: "SAHOTSAVA", target: "#sahotsava" },
     { label: "GALLERY", target: "#gallery" },
-    { label: "CORE", target: "#core-members" },
-    { label: "SPONSORS", target: "#sponsors" },
-    { label: "FOUNDERS", target: "#founders" },
-    { label: "PATRONS", target: "#dignitaries" },
+    { label: "CORE MEMBERS", target: "#core-members" },
+    { label: "PREVIOUS SPONSORS", target: "#sponsors" },
+    { label: "FOUNDERS OF SANSKARAN", target: "#founders" },
+    { label: "DIGNITARIES & COUNCIL", target: "#dignitaries" },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
@@ -178,7 +178,7 @@ export default function Navbar() {
           </a>
 
           {/* Center Navigation Links with GSAP Smooth Scrolling */}
-          <nav className="hidden md:flex items-center gap-8 font-tech text-xs font-semibold tracking-[0.2em] text-white/80 uppercase">
+          <nav className="hidden lg:flex items-center gap-2 xl:gap-6 font-tech text-[10px] xl:text-xs font-semibold tracking-[0.08em] xl:tracking-[0.12em] text-white/80 uppercase whitespace-nowrap">
             {navLinks.map((link) => (
               <a
                 key={link.target}
@@ -199,7 +199,7 @@ export default function Navbar() {
               type="button"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open mobile navigation menu"
-              className="md:hidden flex items-center justify-center w-9 h-9 rounded-xl bg-[#18181b] hover:bg-[#714cb6] border border-white/15 text-white transition-all cursor-pointer shadow-md active:scale-95"
+              className="lg:hidden flex items-center justify-center w-9 h-9 rounded-xl bg-[#18181b] hover:bg-[#714cb6] border border-white/15 text-white transition-all cursor-pointer shadow-md active:scale-95"
             >
               <Menu className="w-4 h-4 text-white" />
             </button>
@@ -229,7 +229,7 @@ export default function Navbar() {
         createPortal(
           <AnimatePresence>
             {mobileMenuOpen && (
-              <div className="fixed inset-0 z-[99999] md:hidden flex flex-col items-center justify-center p-4 sm:p-6 overflow-y-auto">
+              <div className="fixed inset-0 z-[99999] lg:hidden flex flex-col items-center justify-center p-4 sm:p-6 overflow-y-auto">
                 {/* Dark Frosted Backdrop */}
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -288,11 +288,11 @@ export default function Navbar() {
                             }}
                             className="flex items-center justify-between py-2.5 px-3 rounded-2xl hover:bg-slate-100 active:bg-slate-200 transition-all duration-200 group cursor-pointer"
                           >
-                            <div className="flex items-center gap-3.5">
+                            <div className="flex min-w-0 items-center gap-3.5">
                               <span className="font-mono text-xs font-bold text-[#64748b] group-hover:text-[#714cb6] transition-colors">
                                 {num}
                               </span>
-                              <span className="font-display text-2xl tracking-wide text-[#0f172a] group-hover:text-[#714cb6] transition-colors">
+                              <span className="min-w-0 font-display text-xl leading-tight tracking-wide text-[#0f172a] group-hover:text-[#714cb6] transition-colors">
                                 {link.label}
                               </span>
                             </div>

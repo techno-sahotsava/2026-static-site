@@ -84,20 +84,41 @@ export default function SponsorsSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
         {/* Section Header */}
-        <div className="sponsors-header-reveal mb-10 sm:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="text-center md:text-left mx-auto md:mx-0">
+        <div className="sponsors-header-reveal mb-10 sm:mb-12 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+          <div className="text-center lg:text-left mx-auto lg:mx-0">
             <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl text-[#ffffff] leading-none uppercase tracking-tight">
               PREVIOUS SPONSORS
             </h2>
           </div>
 
-          {/* Become a Sponsor CTA */}
-          <div className="shrink-0 flex justify-center md:justify-end">
+          <div className="shrink-0 flex flex-col sm:flex-row justify-center lg:justify-end gap-3">
             <a
               href="/Techno%20Sahotsava%20Sponsorship%202026%20Deck.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/20 hover:border-white/50 backdrop-blur-md transition-all duration-300 shadow-[0_0_24px_rgba(255,255,255,0.05)] text-white font-tech uppercase tracking-[0.16em] text-xs sm:text-sm font-semibold active:scale-95"
+              className="group relative inline-flex w-full sm:w-auto items-center justify-center gap-3 px-6 sm:px-8 py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/20 hover:border-white/50 backdrop-blur-md transition-all duration-300 shadow-[0_0_24px_rgba(255,255,255,0.05)] text-white font-tech uppercase tracking-[0.16em] text-xs sm:text-sm font-semibold active:scale-95"
+            >
+              <span>SPONSOR BROCHURE</span>
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-[#B9ACF0] group-hover:text-white transition-colors"
+              >
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="8" y1="13" x2="16" y2="13" />
+                <line x1="8" y1="17" x2="16" y2="17" />
+              </svg>
+            </a>
+            <a
+              href="mailto:technosahotsava@gmail.com"
+              className="group relative inline-flex w-full sm:w-auto items-center justify-center gap-3 px-6 sm:px-8 py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/20 hover:border-white/50 backdrop-blur-md transition-all duration-300 shadow-[0_0_24px_rgba(255,255,255,0.05)] text-white font-tech uppercase tracking-[0.16em] text-xs sm:text-sm font-semibold active:scale-95"
             >
               <span>BECOME A SPONSOR</span>
               <svg

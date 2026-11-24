@@ -124,7 +124,7 @@ export const CORE_MEMBERS: CoreMember[] = [
     archetype: "CATALYST OF SYNERGY",
     quote: "Connecting student visionaries with artists, thinkers, and patrons across the nation.",
     year: "THIRD YEAR",
-    imageUrl: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_800,c_limit/sanskaran_2026/core_members/preetisha",
+    imageUrl: "/IMG_7638.JPG.jpeg",
   },
   {
     id: "cm-10",

@@ -17,6 +17,15 @@ A high-performance cultural conclave web experience built with modern web techno
 - **Icons**: [Lucide React](https://lucide.dev)
 - **Language**: TypeScript
 
+## Repository Layout
+- `src/`: application routes, components, and data.
+- `public/`: optimized assets served by the website.
+- `assets/source/`: original media files kept for future edits; not served directly.
+- `docs/`: architecture and design references.
+
+## Documentation
+- [Architecture overview](./docs/architecture.md)
+
 ## Getting Started
 
 First, install dependencies:

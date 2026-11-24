@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, AnimatePresence } from "framer-motion";
@@ -51,6 +52,16 @@ const Icon = {
       <line x1="6" y1="6" x2="18" y2="18" />
     </svg>
   ),
+  ChevronLeft: ({ className = "w-4 h-4" }: { className?: string }) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <polyline points="15 18 9 12 15 6" />
+    </svg>
+  ),
+  ChevronRight: ({ className = "w-4 h-4" }: { className?: string }) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+  ),
   Music: ({ className = "w-4 h-4" }: { className?: string }) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <path d="M9 18V5l12-2v13" />
@@ -69,6 +80,61 @@ interface DisciplineDetail {
   description: string;
   accent: string;
 }
+
+interface SectionMedia {
+  kind: "image" | "video";
+  src: string;
+  alt: string;
+  section: "SANSKARAN" | "SAHOTSAVA";
+}
+
+interface VideoPlaybackState {
+  currentTime: number;
+}
+
+interface ExpandedMedia {
+  index: number;
+  videoPlayback?: VideoPlaybackState;
+}
+
+const SECTION_MEDIA: SectionMedia[] = [
+  {
+    kind: "image",
+    src: "/hero_section/RM0600350.webp",
+    alt: "Traditional dance performance on stage",
+    section: "SANSKARAN",
+  },
+  {
+    kind: "image",
+    src: "/hero_section/RM060041.webp",
+    alt: "Black-and-white dramatic stage performance",
+    section: "SANSKARAN",
+  },
+  {
+    kind: "image",
+    src: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM060045.jpg",
+    alt: "Folk art and spiritual music traditions",
+    section: "SANSKARAN",
+  },
+  {
+    kind: "video",
+    src: "/videos/hero-background.mp4",
+    alt: "Sahotsava concert video",
+    section: "SAHOTSAVA",
+  },
+  {
+    kind: "image",
+    src: "/hero_section/RM0600141.webp",
+    alt: "Two singers performing on stage",
+    section: "SAHOTSAVA",
+  },
+  {
+    kind: "image",
+    src: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600184.jpg",
+    alt: "Sound acoustics and live band performance",
+    section: "SAHOTSAVA",
+  },
+];
 
 const SANSKARAN_DISCIPLINES: DisciplineDetail[] = [
   {
@@ -153,9 +219,10 @@ const SAHOTSAVA_DISCIPLINES: DisciplineDetail[] = [
    ========================================================================== */
 interface SanskaranSectionProps {
   onInspect: () => void;
+  onMediaClick: (index: number, videoPlayback?: VideoPlaybackState) => void;
 }
 
-function SanskaranSection({ onInspect }: SanskaranSectionProps) {
+function SanskaranSection({ onInspect, onMediaClick }: SanskaranSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -274,35 +341,56 @@ function SanskaranSection({ onInspect }: SanskaranSectionProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {/* Image 1: Main Heritage Feature */}
               <div className="sanskaran-img-fade sm:col-span-2 relative aspect-video rounded-2xl overflow-hidden shadow-lg shadow-black/10 group">
-                <img
-                  src="/hero_section/RM0600350.webp"
-                  alt="Traditional dance performance on stage"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                />
+                <button
+                  type="button"
+                  onClick={() => onMediaClick(0)}
+                  aria-label="View larger image: Traditional dance performance on stage"
+                  className="absolute inset-0 h-full w-full cursor-zoom-in p-0 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#d4c7ff]"
+                >
+                  <img
+                    src={SECTION_MEDIA[0].src}
+                    alt="Traditional dance performance on stage"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  />
+                </button>
               </div>
 
               {/* Image 2: Atelier & Interior Craft */}
-              <div className="sanskaran-img-fade relative h-48 sm:h-60 rounded-2xl overflow-hidden shadow-lg shadow-black/10 group">
-                <img
-                  src="/hero_section/RM060041.webp"
-                  alt="Black-and-white dramatic stage performance"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                />
+              <div className="sanskaran-img-fade relative aspect-[4/5] rounded-2xl overflow-hidden shadow-lg shadow-black/10 group">
+                <button
+                  type="button"
+                  onClick={() => onMediaClick(1)}
+                  aria-label="View larger image: Black-and-white dramatic stage performance"
+                  className="absolute inset-0 h-full w-full cursor-zoom-in p-0 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#d4c7ff]"
+                >
+                  <img
+                    src={SECTION_MEDIA[1].src}
+                    alt="Black-and-white dramatic stage performance"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-contain object-center"
+                  />
+                </button>
               </div>
 
               {/* Image 3: Traditional Rhythms & Folk Expression */}
-              <div className="sanskaran-img-fade relative h-48 sm:h-60 rounded-2xl overflow-hidden shadow-lg shadow-black/10 group">
-                <img
-                  src="https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM060045.jpg"
-                  alt="Folk art and spiritual music traditions"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                />
+              <div className="sanskaran-img-fade relative aspect-[4/5] rounded-2xl overflow-hidden shadow-lg shadow-black/10 group">
+                <button
+                  type="button"
+                  onClick={() => onMediaClick(2)}
+                  aria-label="View larger image: Folk art and spiritual music traditions"
+                  className="absolute inset-0 h-full w-full cursor-zoom-in p-0 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#d4c7ff]"
+                >
+                  <img
+                    src={SECTION_MEDIA[2].src}
+                    alt="Folk art and spiritual music traditions"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-contain object-center"
+                  />
+                </button>
               </div>
             </div>
           </div>
@@ -317,9 +405,19 @@ function SanskaranSection({ onInspect }: SanskaranSectionProps) {
    ========================================================================== */
 interface SahotsavaSectionProps {
   onInspect: () => void;
+  onMediaClick: (index: number, videoPlayback?: VideoPlaybackState) => void;
+  audioRef: React.RefObject<HTMLAudioElement | null>;
+  mediaViewerOpen: boolean;
+  mediaViewerVideoOpen: boolean;
 }
 
-function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
+function SahotsavaSection({
+  onInspect,
+  onMediaClick,
+  audioRef,
+  mediaViewerOpen,
+  mediaViewerVideoOpen,
+}: SahotsavaSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [inView, setInView] = useState(false);
@@ -389,45 +487,52 @@ function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
   }, []);
 
   useEffect(() => {
+    const section = sectionRef.current;
     const video = videoRef.current;
-    if (!video) return;
+    const audio = audioRef.current;
+    if (!section || !video || !audio) return;
+    if (mediaViewerOpen) {
+      video.pause();
+      if (!mediaViewerVideoOpen) audio.pause();
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
-          video.muted = false;
-          void video.play().then(
+          video.muted = true;
+          audio.muted = false;
+          audio.volume = 1;
+          if (Math.abs(audio.currentTime - video.currentTime) > 0.5) {
+            audio.currentTime = video.currentTime;
+          }
+          void video.play().catch((error: unknown) => {
+            console.error("Unable to play the Sahotsava video:", error);
+          });
+          void audio.play().then(
             () => setNeedsAudioGesture(false),
             (error: unknown) => {
-              video.muted = true;
               setNeedsAudioGesture(true);
-
-              if (error instanceof DOMException && error.name === "NotAllowedError") {
-                void video.play().catch((fallbackError: unknown) => {
-                  console.error("Unable to play the Sahotsava video:", fallbackError);
-                });
-                return;
+              if (!(error instanceof DOMException && error.name === "NotAllowedError")) {
+                console.error("Unable to play Sahotsava audio:", error);
               }
-
-              console.error("Unable to play the Sahotsava video with sound:", error);
             }
           );
         } else {
           video.pause();
-          video.muted = true;
+          audio.pause();
           setNeedsAudioGesture(false);
         }
       },
       { threshold: 0.25 }
     );
 
-    observer.observe(video);
+    observer.observe(section);
     return () => {
       observer.disconnect();
       video.pause();
-      video.muted = true;
     };
-  }, []);
+  }, [audioRef, mediaViewerOpen, mediaViewerVideoOpen]);
 
   return (
     <section
@@ -435,6 +540,13 @@ function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
       ref={sectionRef}
       className="relative z-20 w-full overflow-hidden select-none bg-[#0c4243] text-[#ffffff] py-20 sm:py-28 lg:py-32 border-b border-[#e3e3e2]/15"
     >
+      <audio
+        ref={audioRef}
+        src="/videos/sahotsava-audio.mp3"
+        loop
+        preload="metadata"
+        aria-hidden="true"
+      />
       {/* Atmospheric Luminous Arena Glow Halos */}
       <div
         aria-hidden="true"
@@ -481,8 +593,8 @@ function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
               {/* Image 1: Main Arena Concert Feature */}
               <div className="sahotsava-img-fade sm:col-span-2 relative aspect-video rounded-2xl overflow-hidden bg-black shadow-xl shadow-black/30 group">
                 <video
-                ref={videoRef}
-                  src="/videos/hero-background.mp4"
+                  ref={videoRef}
+                  src={SECTION_MEDIA[3].src}
                   loop
                   muted
                   playsInline
@@ -490,19 +602,38 @@ function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
                   aria-hidden="true"
                   className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const video = videoRef.current;
+                    onMediaClick(3, {
+                      currentTime: video?.currentTime ?? 0,
+                    });
+                  }}
+                  aria-label="View larger Sahotsava concert video"
+                  className="absolute inset-0 z-[1] h-full w-full cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#d4c7ff]"
+                >
+                  <span className="sr-only">View larger Sahotsava concert video</span>
+                </button>
                 {needsAudioGesture && (
                   <button
                     type="button"
                     onClick={() => {
                       const video = videoRef.current;
-                      if (!video) return;
+                      const audio = audioRef.current;
+                      if (!video || !audio) return;
 
-                      video.muted = false;
-                      void video.play().then(
+                      video.muted = true;
+                      audio.muted = false;
+                      audio.volume = 1;
+                      audio.currentTime = video.currentTime;
+                      void audio.play().then(
                         () => setNeedsAudioGesture(false),
                         (error: unknown) => {
-                          video.muted = true;
-                          console.error("Unable to play the Sahotsava video with sound:", error);
+                          setNeedsAudioGesture(true);
+                          if (!(error instanceof DOMException && error.name === "NotAllowedError")) {
+                            console.error("Unable to play Sahotsava audio:", error);
+                          }
                         }
                       );
                     }}
@@ -515,24 +646,38 @@ function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
 
               {/* Image 2: Neon Rig Synthesis */}
               <div className="sahotsava-img-fade relative aspect-[4/5] rounded-2xl overflow-hidden bg-black shadow-xl shadow-black/30 group">
-                <img
-                  src="/hero_section/RM0600141.webp"
-                  alt="Two singers performing on stage"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                />
+                <button
+                  type="button"
+                  onClick={() => onMediaClick(4)}
+                  aria-label="View larger image: Two singers performing on stage"
+                  className="absolute inset-0 h-full w-full cursor-zoom-in p-0 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#d4c7ff]"
+                >
+                  <img
+                    src={SECTION_MEDIA[4].src}
+                    alt="Two singers performing on stage"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  />
+                </button>
               </div>
 
               {/* Image 3: Gothic Acoustics & Live Stadium Sound */}
               <div className="sahotsava-img-fade relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl shadow-black/30 group">
-                <img
-                  src="https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600184.jpg"
-                  alt="Sound acoustics and live band performance"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                />
+                <button
+                  type="button"
+                  onClick={() => onMediaClick(5)}
+                  aria-label="View larger image: Sound acoustics and live band performance"
+                  className="absolute inset-0 h-full w-full cursor-zoom-in p-0 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#d4c7ff]"
+                >
+                  <img
+                    src={SECTION_MEDIA[5].src}
+                    alt="Sound acoustics and live band performance"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  />
+                </button>
               </div>
             </div>
           </div>
@@ -547,6 +692,66 @@ function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
    ========================================================================= */
 export default function AboutFestivalSection() {
   const [inspectModal, setInspectModal] = useState<"sanskaran" | "sahotsava" | null>(null);
+  const [expandedMedia, setExpandedMedia] = useState<ExpandedMedia | null>(null);
+  const [needsExpandedAudioGesture, setNeedsExpandedAudioGesture] = useState(false);
+  const activeMedia =
+    expandedMedia === null ? null : SECTION_MEDIA[expandedMedia.index];
+  const isMediaViewerOpen = expandedMedia !== null;
+  const touchStartX = useRef<number | null>(null);
+  const expandedVideoRef = useRef<HTMLVideoElement>(null);
+  const sahotsavaAudioRef = useRef<HTMLAudioElement>(null);
+
+  const openMedia = useCallback(
+    (index: number, videoPlayback?: VideoPlaybackState) => {
+      setExpandedMedia({ index, videoPlayback });
+    },
+    []
+  );
+
+  useLayoutEffect(() => {
+    if (activeMedia?.kind !== "video") return;
+
+    const video = expandedVideoRef.current;
+    const audio = sahotsavaAudioRef.current;
+    if (!video || !audio) return;
+
+    video.muted = true;
+    audio.muted = false;
+    audio.volume = 1;
+    audio.currentTime = expandedMedia?.videoPlayback?.currentTime ?? 0;
+    void video.play().catch((error: unknown) => {
+      console.error("Unable to play the enlarged Sahotsava video:", error);
+    });
+    void audio.play().then(
+      () => setNeedsExpandedAudioGesture(false),
+      (error: unknown) => {
+        setNeedsExpandedAudioGesture(true);
+        if (!(error instanceof DOMException && error.name === "NotAllowedError")) {
+          console.error("Unable to play enlarged Sahotsava audio:", error);
+        }
+      }
+    );
+  }, [activeMedia?.kind, expandedMedia?.index, expandedMedia?.videoPlayback?.currentTime]);
+
+  const navigateMedia = useCallback((direction: -1 | 1) => {
+    setExpandedMedia((current) => {
+      if (!current) return current;
+
+      const nextIndex =
+        (current.index + direction + SECTION_MEDIA.length) % SECTION_MEDIA.length;
+      const nextMedia = SECTION_MEDIA[nextIndex];
+
+      return {
+        index: nextIndex,
+        videoPlayback:
+          nextMedia.kind === "video"
+            ? current.videoPlayback ?? {
+                currentTime: 0,
+              }
+            : undefined,
+      };
+    });
+  }, []);
 
   // Refresh ScrollTrigger upon mounting dual sections so all downstream sections re-calculate coordinates
   useEffect(() => {
@@ -556,13 +761,228 @@ export default function AboutFestivalSection() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (!isMediaViewerOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setExpandedMedia(null);
+      } else if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        if (event.target instanceof HTMLVideoElement) return;
+        event.preventDefault();
+        navigateMedia(event.key === "ArrowLeft" ? -1 : 1);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMediaViewerOpen, navigateMedia]);
+
   return (
     <>
       {/* 1. Sanskaran Conclave Section (Heritage, Art, Intellect) */}
-      <SanskaranSection onInspect={() => setInspectModal("sanskaran")} />
+      <SanskaranSection
+        onInspect={() => setInspectModal("sanskaran")}
+        onMediaClick={openMedia}
+      />
 
       {/* 2. Sahotsava Arena Section (Logo Watermark Background, Stadium Concerts) */}
-      <SahotsavaSection onInspect={() => setInspectModal("sahotsava")} />
+      <SahotsavaSection
+        onInspect={() => setInspectModal("sahotsava")}
+        onMediaClick={openMedia}
+        audioRef={sahotsavaAudioRef}
+        mediaViewerOpen={isMediaViewerOpen}
+        mediaViewerVideoOpen={activeMedia?.kind === "video"}
+      />
+
+      {expandedMedia &&
+        activeMedia &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            <motion.div
+              key="expanded-media-dialog"
+              role="dialog"
+              aria-modal="true"
+              aria-label={activeMedia.alt}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center"
+            >
+              <div
+                aria-hidden="true"
+                onClick={() => setExpandedMedia(null)}
+                className="pointer-events-auto absolute inset-0 bg-black/95 backdrop-blur-md"
+              />
+              <motion.div
+                key={`media-${expandedMedia.index}`}
+                initial={{ scale: 0.96, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.96, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={(event) => event.stopPropagation()}
+                onTouchStart={(event) => {
+                  touchStartX.current =
+                    event.changedTouches.item(0)?.clientX ?? null;
+                }}
+                onTouchEnd={(event) => {
+                  const touch = event.changedTouches.item(0);
+                  const startX = touchStartX.current;
+                  touchStartX.current = null;
+                  if (!touch || startX === null) return;
+
+                  const distance = touch.clientX - startX;
+                  if (Math.abs(distance) > 50) {
+                    navigateMedia(distance < 0 ? 1 : -1);
+                  }
+                }}
+                onTouchCancel={() => {
+                  touchStartX.current = null;
+                }}
+                className="pointer-events-auto relative z-10 flex max-h-[88vh] w-full max-w-7xl items-center justify-center"
+              >
+                {activeMedia.kind === "image" ? (
+                  <img
+                    src={activeMedia.src}
+                    alt={activeMedia.alt}
+                    className="max-h-[88vh] max-w-[94vw] rounded-xl object-contain shadow-2xl"
+                  />
+                ) : (
+                  <video
+                    ref={expandedVideoRef}
+                    src={activeMedia.src}
+                    controls
+                    muted
+                    playsInline
+                    preload="metadata"
+                    onLoadedMetadata={(event) => {
+                      const currentTime = expandedMedia.videoPlayback?.currentTime ?? 0;
+                      if (currentTime > 0) {
+                        event.currentTarget.currentTime = currentTime;
+                      }
+                    }}
+                    onTimeUpdate={(event) => {
+                      const audio = sahotsavaAudioRef.current;
+                      if (
+                        audio &&
+                        Math.abs(audio.currentTime - event.currentTarget.currentTime) > 0.5
+                      ) {
+                        audio.currentTime = event.currentTarget.currentTime;
+                      }
+                    }}
+                    onSeeking={(event) => {
+                      const audio = sahotsavaAudioRef.current;
+                      if (audio) audio.currentTime = event.currentTarget.currentTime;
+                    }}
+                    onPlay={(event) => {
+                      const audio = sahotsavaAudioRef.current;
+                      if (!audio || !audio.paused) return;
+
+                      audio.muted = false;
+                      audio.volume = 1;
+                      audio.currentTime = event.currentTarget.currentTime;
+                      void audio.play().then(
+                        () => setNeedsExpandedAudioGesture(false),
+                        (error: unknown) => {
+                          setNeedsExpandedAudioGesture(true);
+                          if (!(error instanceof DOMException && error.name === "NotAllowedError")) {
+                            console.error("Unable to play enlarged Sahotsava audio:", error);
+                          }
+                        }
+                      );
+                    }}
+                    onPause={() => sahotsavaAudioRef.current?.pause()}
+                    onEnded={() => sahotsavaAudioRef.current?.pause()}
+                    className="aspect-video max-h-[88vh] w-full max-w-[94vw] rounded-xl bg-black object-contain shadow-2xl"
+                  >
+                    Your browser does not support HTML video.
+                  </video>
+                )}
+              </motion.div>
+              {activeMedia.kind === "video" && needsExpandedAudioGesture && (
+                <motion.button
+                  type="button"
+                  onClick={() => {
+                    const video = expandedVideoRef.current;
+                    const audio = sahotsavaAudioRef.current;
+                    if (!video || !audio) return;
+
+                    audio.muted = false;
+                    audio.volume = 1;
+                    audio.currentTime = video.currentTime;
+                    void audio.play().then(
+                      () => setNeedsExpandedAudioGesture(false),
+                      (error: unknown) => {
+                        setNeedsExpandedAudioGesture(true);
+                        console.error("Unable to play enlarged Sahotsava audio:", error);
+                      }
+                    );
+                  }}
+                  aria-label="Play Sahotsava video with sound"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="pointer-events-auto fixed right-4 top-20 z-[110] rounded-full border border-white/15 bg-black/70 px-4 py-3 text-xs font-semibold tracking-wide text-white backdrop-blur-md transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                >
+                  Play with sound
+                </motion.button>
+              )}
+              <motion.div
+                key="media-counter"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="pointer-events-none fixed left-4 top-4 z-[110] rounded-full border border-white/15 bg-black/70 px-3 py-2 font-mono text-[10px] font-semibold tracking-wider text-white/90 backdrop-blur-md sm:left-6 sm:top-6"
+              >
+                {activeMedia.section} · {expandedMedia.index + 1} / {SECTION_MEDIA.length}
+              </motion.div>
+              <motion.button
+                key="close-expanded-media"
+                type="button"
+                onClick={() => setExpandedMedia(null)}
+                aria-label="Close enlarged media"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="pointer-events-auto fixed right-4 top-4 z-[110] flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:right-6 sm:top-6"
+              >
+                <Icon.X className="h-5 w-5" />
+              </motion.button>
+              <motion.button
+                key="previous-expanded-media"
+                type="button"
+                onClick={() => navigateMedia(-1)}
+                aria-label="Previous media"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="pointer-events-auto fixed left-3 top-1/2 z-[110] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/65 text-white transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:left-6"
+              >
+                <Icon.ChevronLeft className="h-6 w-6" />
+              </motion.button>
+              <motion.button
+                key="next-expanded-media"
+                type="button"
+                onClick={() => navigateMedia(1)}
+                aria-label="Next media"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="pointer-events-auto fixed right-3 top-1/2 z-[110] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/65 text-white transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:right-6"
+              >
+                <Icon.ChevronRight className="h-6 w-6" />
+              </motion.button>
+            </motion.div>
+          </AnimatePresence>,
+          document.body
+        )}
 
       {/* =====================================================================
           DETAILED DISCIPLINE & LINEUP INSPECTION MODAL (PAPER WHITE)

@@ -39,6 +39,9 @@ const sanskaranLogo = "/sanskaran-logo.png";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.technosahotsava.in"),
+  alternates: {
+    canonical: "/",
+  },
   title: "Sanskaran & Sahotsava 2026",
   description:
     "Official portal for Sanskaran & Sahotsava 2026 — the annual cultural and music conclave where intellectual heritage meets stadium euphoria.",

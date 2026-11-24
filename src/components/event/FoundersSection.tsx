@@ -25,22 +25,23 @@ export const FOUNDERS: FounderProfile[] = [
   {
     id: "fnd-01",
     badge: "FOUNDER",
+    name: "SAYAN CHAKRABORTY",
+    designation: "FOUNDER",
+    monogram: "SC",
+    imageUrl: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_800,c_limit/sanskaran_2026/founders/sayan_chakraborty",
+    thumbnailUrl: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/sanskaran_2026/founders/sayan_chakraborty",
+  },
+  {
+    id: "fnd-02",
+    badge: "FOUNDER",
     name: "PARTHA SARATHI PAL",
-    designation: "FOUNDING , SANSKARAN",
+    designation: "FOUNDER",
     monogram: "PP",
     imageUrl: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_800,c_limit/sanskaran_2026/founders/partha_sarathi_pal",
     thumbnailUrl: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/sanskaran_2026/founders/partha_sarathi_pal",
     imageClassName: "object-center",
   },
-  {
-    id: "fnd-02",
-    badge: "FOUNDER",
-    name: "SAYAN CHAKRABORTY",
-    designation: "FOUNDING , SANSKARAN",
-    monogram: "SC",
-    imageUrl: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_800,c_limit/sanskaran_2026/founders/sayan_chakraborty",
-    thumbnailUrl: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/sanskaran_2026/founders/sayan_chakraborty",
-  },
+  
 ];
 
 export default function FoundersSection() {

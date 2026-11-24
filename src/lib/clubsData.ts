@@ -345,9 +345,9 @@ export const CLUBS_DATA: ClubItem[] = [
     ]
   },
   {
-    "id": "nritaksha",
+    "id": "nrityaksha",
     "number": "08",
-    "name": "NRITAKSHA",
+    "name": "NRITYAKSHA",
     "category": "CLASSICAL DANCE",
     "accentColor": "#F43F5E",
     "gradient": "from-[#F43F5E] to-[#9F1239]",
@@ -438,7 +438,7 @@ export const CLUBS_DATA: ClubItem[] = [
     "id": "phoenix",
     "number": "10",
     "name": "PHOENIX",
-    "category": "FASHION & DESIGN",
+    "category": "FASHION",
     "accentColor": "#FF5722",
     "gradient": "from-[#FF5722] to-[#B91C1C]",
     "coverImage": "https://res.cloudinary.com/lsyjstbv/image/upload/v1795375385/sanskaran_2026/gallery/phoenix/phoenix_01.jpg",

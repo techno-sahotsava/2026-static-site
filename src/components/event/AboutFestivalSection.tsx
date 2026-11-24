@@ -524,17 +524,7 @@ function SahotsavaSection({ onInspect }: SahotsavaSectionProps) {
                 />
               </div>
 
-              {/* Image 3: Neon Rig Synthesis */}
-              <div className="sahotsava-img-fade relative h-48 sm:h-60 rounded-2xl overflow-hidden shadow-xl shadow-black/30 group">
-                <img
-                  src="https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600144.jpg"
-                  alt="Neon light synthesis and laser displays"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              {/* Image 4: Gothic Acoustics & Live Stadium Sound */}
+              {/* Image 3: Gothic Acoustics & Live Stadium Sound */}
               <div className="sahotsava-img-fade relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl shadow-black/30 group">
                 <img
                   src="https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_1200,c_limit/hero%20section/RM0600184.jpg"

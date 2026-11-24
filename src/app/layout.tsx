@@ -39,6 +39,9 @@ export const metadata: Metadata = {
   title: "Sanskaran & Sahotsava 2026",
   description:
     "Official portal for Sanskaran & Sahotsava 2026 — the annual cultural and music conclave where intellectual heritage meets stadium euphoria.",
+  icons: {
+    icon: "/sanskaran-logo.png",
+  },
   openGraph: {
     title: "Sanskaran & Sahotsava 2026",
     description:

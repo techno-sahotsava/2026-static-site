@@ -402,7 +402,7 @@ export default function ShowcaseHeroSection({
         {!isDarkWebsite && (
           <>
             {experienceActive && (
-              <div className="pointer-events-none absolute left-1/2 top-1/2 z-[3] h-[min(90vw,70vh)] w-screen -translate-x-1/2 -translate-y-1/2 lg:inset-0 lg:h-full lg:w-full lg:translate-x-0 lg:translate-y-0">
+              <div className="pointer-events-none absolute left-1/2 top-1/2 z-[3] h-[min(90vw,70vh)] w-screen -translate-x-1/2 -translate-y-[56%] lg:inset-0 lg:h-full lg:w-full lg:translate-x-0 lg:-translate-y-[5vh]">
                 {DEVFEST_SHOWCASE_ITEMS.map((item, index) => {
                   const delayMs = index * staggerDelay;
                   const tileStyle: ShowcaseTileStyle = {
@@ -551,15 +551,14 @@ export default function ShowcaseHeroSection({
               <div
                 className="pointer-events-auto mt-6 sm:mt-8 flex flex-col items-center gap-4 text-center"
                 style={{
-                  opacity: heroContentRevealed ? 1 : 0,
-                  transition: "opacity 900ms ease 540ms",
+                  visibility: heroContentRevealed ? "visible" : "hidden",
                 }}
               >
-                {/* Impeccable Glassmorphism Action Button */}
+                {/* Explore Action Button */}
                 <button
                   type="button"
                   onClick={handleExploreClick}
-                  className="flex h-11 sm:h-12 cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-full px-8 sm:px-9 text-xs sm:text-sm font-bold tracking-[0.16em] uppercase text-white bg-white/10 hover:bg-white/20 border border-white/25 hover:border-white/50 backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(255,255,255,0.12)]"
+                  className="flex h-11 sm:h-12 cursor-pointer select-none items-center justify-center whitespace-nowrap rounded-full px-8 sm:px-9 text-xs sm:text-sm font-bold tracking-[0.16em] uppercase text-white opacity-100 bg-white/10 border border-white/25 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(255,255,255,0.12)]"
                 >
                   Explore
                 </button>

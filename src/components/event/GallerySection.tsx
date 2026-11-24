@@ -188,8 +188,8 @@ const CLUB_EXPANDED_THEMES: Record<string, ClubExpandedTheme> = {
     ambient: "#818CF8",
     badgeBg: "rgba(129, 140, 248, 0.2)",
   },
-  // 08: NRITAKSHA (Dance Troupe - Midnight Ruby Velvet)
-  nritaksha: {
+  // 08: NRITYAKSHA (Dance Troupe - Midnight Ruby Velvet)
+  nrityaksha: {
     bg: "#1A0512",
     gradient: "linear-gradient(180deg, #2E0720 0%, #170410 45%, #0B0207 100%)",
     border: "rgba(244, 63, 94, 0.45)",

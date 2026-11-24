@@ -133,8 +133,8 @@ export default function Navbar() {
     { label: "GALLERY", target: "#gallery" },
     { label: "CORE", target: "#core-members" },
     { label: "SPONSORS", target: "#sponsors" },
-    { label: "PATRONS", target: "#dignitaries" },
     { label: "FOUNDERS", target: "#founders" },
+    { label: "PATRONS", target: "#dignitaries" },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {

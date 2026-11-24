@@ -36,8 +36,8 @@ export default function Home() {
         <GallerySection />
         <CoreMembersSection />
         <SponsorsSection />
-        <DignitariesSection />
         <FoundersSection />
+        <DignitariesSection />
         <Footer />
       </div>
     </main>

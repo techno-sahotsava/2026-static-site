@@ -37,7 +37,7 @@ export const DIGNITARIES: DignitaryProfile[] = [
     id: "dig-02",
     badge: "PATRON & ACADEMIC HEAD",
     name: "PROF. DR. RINA PALADHI",
-    designation: "Director of Techno India University, West Bengal",
+    designation: "Director of Academics, Techno India University, West Bengal",
     monogram: "RP",
     imageUrl: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:good,w_800,c_limit/sanskaran_2026/dignitaries/prof__dr__rina_paladhi",
     thumbnailUrl: "https://res.cloudinary.com/lsyjstbv/image/upload/f_auto,q_auto:low,w_40,e_blur:1000/sanskaran_2026/dignitaries/prof__dr__rina_paladhi",

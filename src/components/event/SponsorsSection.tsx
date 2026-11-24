@@ -94,7 +94,7 @@ export default function SponsorsSection() {
           {/* Become a Sponsor CTA */}
           <div className="shrink-0 flex justify-center md:justify-end">
             <a
-              href="https://www.technosahotsava.in/assets/Techno%20Sahotsava%20Sponsorship%202026%20Deck-EKlhH6MA.pdf"
+              href="/Techno%20Sahotsava%20Sponsorship%202026%20Deck.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/20 hover:border-white/50 backdrop-blur-md transition-all duration-300 shadow-[0_0_24px_rgba(255,255,255,0.05)] text-white font-tech uppercase tracking-[0.16em] text-xs sm:text-sm font-semibold active:scale-95"

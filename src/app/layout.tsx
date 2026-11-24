@@ -35,12 +35,19 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
 });
 
+const sanskaranLogo = "/sanskaran-logo.png";
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.technosahotsava.in"),
   title: "Sanskaran & Sahotsava 2026",
   description:
     "Official portal for Sanskaran & Sahotsava 2026 — the annual cultural and music conclave where intellectual heritage meets stadium euphoria.",
   icons: {
-    icon: "/sanskaran-logo.png",
+    icon: { url: sanskaranLogo, type: "image/png" },
+    apple: {
+      url: `${sanskaranLogo}?v=20261124`,
+      type: "image/png",
+    },
   },
   openGraph: {
     title: "Sanskaran & Sahotsava 2026",
@@ -48,6 +55,22 @@ export const metadata: Metadata = {
       "Official portal for Sanskaran & Sahotsava 2026 — the annual cultural and music conclave where intellectual heritage meets stadium euphoria.",
     siteName: "Sanskaran & Sahotsava 2026",
     type: "website",
+    url: "/",
+    images: [
+      {
+        url: sanskaranLogo,
+        width: 2122,
+        height: 2165,
+        alt: "Sanskaran cultural club logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Sanskaran & Sahotsava 2026",
+    description:
+      "Official portal for Sanskaran & Sahotsava 2026 — the annual cultural and music conclave where intellectual heritage meets stadium euphoria.",
+    images: [sanskaranLogo],
   },
 };
 

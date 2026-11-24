@@ -117,7 +117,10 @@ export default function SponsorsSection() {
               </svg>
             </a>
             <a
-              href="mailto:technosahotsava@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=technosahotsava%40gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Email technosahotsava@gmail.com about sponsorship"
               className="group relative inline-flex w-full sm:w-auto items-center justify-center gap-3 px-6 sm:px-8 py-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/20 hover:border-white/50 backdrop-blur-md transition-all duration-300 shadow-[0_0_24px_rgba(255,255,255,0.05)] text-white font-tech uppercase tracking-[0.16em] text-xs sm:text-sm font-semibold active:scale-95"
             >
               <span>BECOME A SPONSOR</span>
